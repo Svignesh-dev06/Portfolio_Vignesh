@@ -106,9 +106,7 @@ function Projects() {
                       </a>
                     )}
                   </div>
-                ) : (
-                  <span className="project-links-pending">Project links coming soon</span>
-                )}
+                ) : null}
               </div>
             </article>
           ))}

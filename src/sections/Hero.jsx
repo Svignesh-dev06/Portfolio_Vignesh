@@ -6,6 +6,7 @@ import Button from "../components/Button.jsx";
 import profile from "../assets/Profile.png";
 
 const roles = ["Full Stack Developer", "MERN Stack Developer", "Web Developer"];
+const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
 
 function Hero() {
   const [typedRole, setTypedRole] = useState("");
@@ -49,7 +50,7 @@ function Hero() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch("/resume.pdf", { method: "HEAD" })
+    fetch(resumeUrl, { method: "HEAD" })
       .then((response) => {
         if (!cancelled) {
           setResumeAvailable(
@@ -122,7 +123,7 @@ function Hero() {
               View My Projects
             </Button>
             <Button
-              href={resumeAvailable ? "/resume.pdf" : undefined}
+              href={resumeAvailable ? resumeUrl : undefined}
               download
               disabled={!resumeAvailable}
               variant="secondary"
@@ -130,7 +131,7 @@ function Hero() {
               title={
                 resumeAvailable
                   ? "Download resume PDF"
-                  : "Add a real PDF at /resume.pdf to enable this download"
+                  : "Add a resume PDF at public/resume.pdf to enable this download"
               }
             >
               {resumeAvailable ? "Download Resume" : "Resume Unavailable"}

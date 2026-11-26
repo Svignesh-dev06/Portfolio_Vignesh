@@ -8,6 +8,20 @@ function Contact() {
 
   useEffect(() => () => window.clearTimeout(feedbackTimer.current), []);
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = String(formData.get("name")).trim();
+    const email = String(formData.get("email")).trim();
+    const message = String(formData.get("message")).trim();
+    const subject = encodeURIComponent(`Portfolio message from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    );
+
+    window.location.href = `mailto:subramaniankv68@gmail.com?subject=${subject}&body=${body}`;
+  }
+
   async function copyEmail() {
     window.clearTimeout(feedbackTimer.current);
     try {
@@ -68,6 +82,31 @@ function Contact() {
                 : "Unable to copy email. Please use the email link."}
             </div>
           )}
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <label>
+              Name
+              <input name="name" type="text" autoComplete="name" required />
+            </label>
+            <label>
+              Email
+              <input
+                name="email"
+                type="email"
+                autoComplete="email"
+                required
+              />
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="4" required />
+            </label>
+            <button className="button button-primary" type="submit">
+              Open email app <ArrowUpRight size={16} aria-hidden="true" />
+            </button>
+            <p className="contact-form-note">
+              This opens your email app with your message ready to send.
+            </p>
+          </form>
         </div>
         <div className="contact-details">
           <a

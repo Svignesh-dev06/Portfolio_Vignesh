@@ -88,26 +88,6 @@
   content: '';
 }
 
-.nav-links>.nav-contact-link {
-  padding: 11px 17px;
-  border: 1px solid #dbeafe;
-  border-radius: 8px;
-  color: var(--blue-dark);
-  background: #f8fbff;
-  font-weight: 600;
-  transition: color .2s, border-color .2s, background .2s;
-}
-
-.nav-links>.nav-contact-link:hover {
-  border-color: var(--blue);
-  color: #fff;
-  background: var(--blue);
-}
-
-.nav-links>.nav-contact-link::after {
-  display: none;
-}
-
 .menu-toggle {
   display: none;
 }
@@ -1186,8 +1166,7 @@
   line-height: 1;
 }
 
-.project-links,
-.project-links-pending {
+.project-links {
   display: flex;
   min-height: 36px;
   align-items: center;
@@ -1209,11 +1188,6 @@
 
 .project-links a:hover {
   color: var(--blue);
-}
-
-.project-links-pending {
-  color: #94a3b8;
-  font-size: 12px;
 }
 
 .contact-section {
@@ -1269,6 +1243,54 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 14px;
+}
+
+.contact-form {
+  display: grid;
+  max-width: 470px;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.contact-form label {
+  display: grid;
+  gap: 6px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #dfe7f1;
+  border-radius: 7px;
+  color: var(--ink);
+  background: #fff;
+  font: 400 14px/1.5 'DM Sans', sans-serif;
+}
+
+.contact-form textarea {
+  min-height: 112px;
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--blue);
+  outline: 2px solid rgba(37, 99, 235, .15);
+}
+
+.contact-form .button {
+  justify-self: start;
+}
+
+.contact-form-note {
+  margin: -5px 0 0;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 .copy-email-button {
@@ -1592,7 +1614,7 @@
     flex-direction: column;
   }
 
-  .nav-links>a:not(.nav-contact-link) {
+  .nav-links>a {
     padding: 12px 10px;
     border-bottom: 1px solid #f1f5f9;
   }
@@ -1605,12 +1627,6 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-  }
-
-  .nav-links>.nav-contact-link {
-    justify-content: center;
-    margin-top: 8px;
-    text-align: center;
   }
 
   .hero-section {
@@ -1674,8 +1690,7 @@
   }
 
   .tech-composition {
-    width: 100%;
-    padding: 2px 0 0;
+    display: none;
   }
 
   .tech-grid {

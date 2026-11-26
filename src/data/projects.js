@@ -31,7 +31,6 @@ export const projects = [
     techStack: ['MongoDB', 'Express.js', 'React.js', 'Node.js'],
     description: 'An end-to-end full-stack logistics and moving platform engineered with the MERN stack, featuring a responsive React frontend and RESTful backend architecture.',
     visual: 'movemate',
-    repository: 'https://github.com/Svignesh-dev06',
     liveDemo: '',
   },
 ]
