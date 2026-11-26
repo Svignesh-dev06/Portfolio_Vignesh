@@ -1,3 +1,4 @@
+import { env } from 'node:process'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'vite'
@@ -5,5 +6,5 @@ import { defineConfig } from 'vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-   base: '/Portfolio_Vignesh/',
+  base: env.VERCEL ? '/' : '/Portfolio_Vignesh/',
 })
