@@ -21,7 +21,7 @@
   --surface: #f8fafc;
   --display: 'Manrope', 'DM Sans', sans-serif;
   scroll-behavior: smooth;
-  scroll-padding-top: 86px;
+  scroll-padding-top: 24px;
 }
 
 * { box-sizing: border-box; }
@@ -31,7 +31,7 @@ body {
   margin: 0;
   background: var(--paper);
 }
-html, body { max-width: 100%; overflow-x: hidden; }
+html, body { max-width: 100%; overflow-x: clip; }
 
 button, a { -webkit-tap-highlight-color: transparent; }
 a { color: inherit; text-decoration: none; }

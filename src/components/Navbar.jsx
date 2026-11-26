@@ -11,19 +11,32 @@ function Navbar() {
     const sections = links
       .map((label) => document.getElementById(label.toLowerCase()))
       .filter(Boolean)
+    let updateTimer
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        if (visible) setActiveSection(visible.target.id)
-      },
-      { rootMargin: '-25% 0px -65% 0px', threshold: [0, 0.1, 0.3] },
-    )
+    function updateActiveSection() {
+      window.clearTimeout(updateTimer)
+      updateTimer = window.setTimeout(() => {
+        const scrollOffset = parseFloat(
+          getComputedStyle(document.documentElement).scrollPaddingTop,
+        )
+        let activeSection = sections[0]
 
-    sections.forEach((section) => observer.observe(section))
-    return () => observer.disconnect()
+        sections.forEach((section) => {
+          if (section.getBoundingClientRect().top <= scrollOffset + 2) {
+            activeSection = section
+          }
+        })
+
+        if (activeSection) setActiveSection(activeSection.id)
+      }, 100)
+    }
+
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    updateActiveSection()
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection)
+      window.clearTimeout(updateTimer)
+    }
   }, [])
 
   function closeMenu() {
@@ -33,7 +46,15 @@ function Navbar() {
   return (
     <header className="site-header">
       <nav className="nav-shell page-container" aria-label="Main navigation">
-        <a className="brand" href="#home" onClick={closeMenu} aria-label="Vignesh S, home">
+        <a
+          className="brand"
+          href="#home"
+          onClick={() => {
+            setActiveSection('home')
+            closeMenu()
+          }}
+          aria-label="Vignesh S, home"
+        >
           <span className="brand-mark" aria-hidden="true">VS</span>
           <span className="brand-name">VIGNESH S</span>
         </a>
@@ -59,7 +80,10 @@ function Navbar() {
                 href={`#${id}`}
                 className={activeSection === id ? 'active' : ''}
                 aria-current={activeSection === id ? 'location' : undefined}
-                onClick={closeMenu}
+                onClick={() => {
+                  setActiveSection(id)
+                  closeMenu()
+                }}
               >
                 {label}
               </a>
