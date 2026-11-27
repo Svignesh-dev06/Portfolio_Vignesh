@@ -1,4 +1,5 @@
 import { ArrowDownToLine, ArrowUpRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 function Button({
   href,
@@ -20,16 +21,30 @@ function Button({
 
   if (href && !disabled) {
     return (
-      <a className={classes} href={href} download={download || undefined} {...props}>
+      <motion.a
+        className={classes}
+        href={href}
+        download={download || undefined}
+        whileHover={{ y: -2, scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        {...props}
+      >
         {content}
-      </a>
+      </motion.a>
     )
   }
 
   return (
-    <button className={classes} type="button" disabled={disabled} {...props}>
+    <motion.button
+      className={classes}
+      type="button"
+      disabled={disabled}
+      whileHover={disabled ? undefined : { y: -2, scale: 1.02 }}
+      whileTap={disabled ? undefined : { scale: 0.98 }}
+      {...props}
+    >
       {content}
-    </button>
+    </motion.button>
   )
 }
 

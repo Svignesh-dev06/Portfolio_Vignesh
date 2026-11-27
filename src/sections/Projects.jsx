@@ -1,7 +1,9 @@
 import { ArrowUpRight, MoveUpRight } from 'lucide-react'
 import { FaGithub } from 'react-icons/fa6'
 import { useRef, useState } from 'react'
+import { motion } from 'framer-motion'
 import { projects } from '../data/projects.js'
+import { revealItem, staggerReveal, viewportOnce } from '../motion.js'
 
 function ProjectVisual({ type, previewVideo }) {
   const videoRef = useRef(null)
@@ -76,20 +78,45 @@ function Projects() {
     <section className="section projects-section" id="projects">
       <div className="page-container">
         <div className="projects-heading">
-          <div className="section-intro">
-            <span className="section-eyebrow"><span /> SELECTED PROJECTS</span>
-            <h2>Ideas made<br /><span>into experiences.</span></h2>
-          </div>
-          <p>From polished frontend experiences to full-stack MERN applications, each project brings practical ideas to life.</p>
+          <motion.div
+            className="section-intro"
+            variants={staggerReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+          >
+            <motion.span className="section-eyebrow" variants={revealItem}><span /> SELECTED PROJECTS</motion.span>
+            <motion.h2 variants={revealItem}>Ideas made<br /><span>into experiences.</span></motion.h2>
+          </motion.div>
+          <motion.p
+            variants={revealItem}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+          >From polished frontend experiences to full-stack MERN applications, each project brings practical ideas to life.</motion.p>
         </div>
-        <div className="project-grid">
+        <motion.div
+          className="project-grid"
+          variants={staggerReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+        >
           {projects.map((project) => (
-            <article className="project-card" key={project.number}>
+            <motion.article
+              className="project-card"
+              key={project.number}
+              variants={revealItem}
+              whileHover={{ y: -4 }}
+            >
               <ProjectVisual type={project.visual} previewVideo={project.previewVideo} />
               <div className="project-card-content">
                 <div className="project-meta"><span>{project.category}</span><span>{project.number}</span></div>
                 <h3>{project.title}<ArrowUpRight size={19} aria-hidden="true" /></h3>
                 <p>{project.description}</p>
+                {project.previewNote && (
+                  <p className="project-preview-note">{project.previewNote}</p>
+                )}
                 <ul className="project-tech-stack" aria-label={`${project.title} technology stack`}>
                   {project.techStack.map((technology) => <li key={technology}>{technology}</li>)}
                 </ul>
@@ -106,11 +133,15 @@ function Projects() {
                       </a>
                     )}
                   </div>
-                ) : null}
+                ) : (
+                  <div className="project-links project-links-unavailable">
+                    <p>Repository and live demo links to be added.</p>
+                  </div>
+                )}
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

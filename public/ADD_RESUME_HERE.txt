@@ -1,0 +1,2 @@
+The resume download is disabled because public/resume.pdf has not been added.
+Add your real resume PDF at public/resume.pdf to enable the download button.
